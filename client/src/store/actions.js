@@ -1,5 +1,7 @@
 import { createAction } from "redux-actions";
 
+/*** Socket Actions ***/
+
 // Open socket connection
 export const OPEN_SOCKET_CONNECTION = "OPEN_SOCKET_CONNECTION";
 export const openSocketConnection = createAction(OPEN_SOCKET_CONNECTION);
@@ -16,6 +18,38 @@ export const unsubscribe = (subscription) => createAction(SEND_SOCKET_DATA)({ in
 // Close socket connection
 export const CLOSE_SOCKET_CONNECTION = "CLOSE_SOCKET_CONNECTION";
 export const closeSocketConnection = createAction(CLOSE_SOCKET_CONNECTION);
+
+
+/*** Action Channel Managers */
+export const WRITE_TO_ACTION_CHANNEL_A = "WRITE_TO_ACTION_CHANNEL_A";
+export const writeToActionChannelA = (value) => createAction(WRITE_TO_ACTION_CHANNEL_A)({ value });
+
+export const WRITE_TO_ACTION_CHANNEL_B = "WRITE_TO_ACTION_CHANNEL_B";
+export const writeToActionChannelB = (value) => createAction(WRITE_TO_ACTION_CHANNEL_B)({ value });
+
+export const WRITE_TO_ACTION_CHANNEL_C = "WRITE_TO_ACTION_CHANNEL_C";
+export const writeToActionChannelC = (value) => createAction(WRITE_TO_ACTION_CHANNEL_C)({ value });
+
+export const CONSUME_ACTION_CHANNEL_A = "CONSUME_ACTION_CHANNEL_A";
+export const consumeActionChannelA = createAction(CONSUME_ACTION_CHANNEL_A);
+
+export const CONSUME_ACTION_CHANNEL_B = "CONSUME_ACTION_CHANNEL_B";
+export const consumeActionChannelB = createAction(CONSUME_ACTION_CHANNEL_B);
+
+export const CONSUME_ACTION_CHANNEL_C = "CONSUME_ACTION_CHANNEL_C";
+export const consumeActionChannelC = createAction(CONSUME_ACTION_CHANNEL_C);
+
+export const FLUSH_ACTION_CHANNEL_A = "FLUSH_ACTION_CHANNEL_A";
+export const flushActionChannelA = createAction(FLUSH_ACTION_CHANNEL_A);
+
+export const FLUSH_ACTION_CHANNEL_B = "FLUSH_ACTION_CHANNEL_B";
+export const flushActionChannelB = createAction(FLUSH_ACTION_CHANNEL_B);
+
+export const FLUSH_ACTION_CHANNEL_C = "FLUSH_ACTION_CHANNEL_C";
+export const flushActionChannelC = createAction(FLUSH_ACTION_CHANNEL_C);
+
+
+/*** State Mutators ***/
 
 // Update Values
 export const UPDATE_A_VALUE = "UPDATE_A_VALUE";

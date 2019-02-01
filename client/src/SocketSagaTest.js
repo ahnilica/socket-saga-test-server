@@ -6,7 +6,10 @@ import {
   openSocketConnection, 
   closeSocketConnection,
   subscribe,
-  unsubscribe
+  unsubscribe,
+  consumeActionChannelA,
+  consumeActionChannelB,
+  consumeActionChannelC
 } from "./store/actions";
 
 // Selectors
@@ -31,7 +34,7 @@ class SocketSagaTest extends React.Component {
     closeConnection();
   }
 
-  onClick = (subscription) => () => {
+  onSubscribeClick = (subscription) => () => {
     const { subscribe, unsubscribe } = this.props;
     const { subscribedA, subscribedB, subscribedC } = this.state;
 
@@ -53,6 +56,24 @@ class SocketSagaTest extends React.Component {
     }
   }
 
+  onConsumeClick = (subscription) => () => {
+    const { consumeA, consumeB, consumeC } = this.props;
+
+    switch(subscription) {
+      case "A":
+        consumeA();
+        break;
+      case "B":
+        consumeB();
+        break;
+      case "C":
+        consumeC();
+        break;
+      default:
+        break;
+    }
+  }
+
   render() {
     const { subscribedA, subscribedB, subscribedC } = this.state;
     const { a, b, c } = this.props;
@@ -68,15 +89,29 @@ class SocketSagaTest extends React.Component {
         <br />
         <br />
         <br />
-        <button onClick={this.onClick("A")}>{subscribedA ? "UNSUBSCRIBE A" : "SUBSCRIBE A"}</button>
+        <button onClick={this.onSubscribeClick("A")}>{subscribedA ? "UNSUBSCRIBE A" : "SUBSCRIBE A"}</button>
+
+        { subscribedA && 
+          <button onClick={this.onConsumeClick("A")}>Consume Action Channel A</button>
+        }
+        
         <br />
         <br />
         <br />
-        <button onClick={this.onClick("B")}>{subscribedB ? "UNSUBSCRIBE B" : "SUBSCRIBE B"}</button>
+        <button onClick={this.onSubscribeClick("B")}>{subscribedB ? "UNSUBSCRIBE B" : "SUBSCRIBE B"}</button>
+
+        { subscribedB && 
+          <button onClick={this.onConsumeClick("B")}>Consume Action Channel B</button>
+        }
+
         <br />
         <br />
         <br />
-        <button onClick={this.onClick("C")}>{subscribedC ? "UNSUBSCRIBE C" : "SUBSCRIBE C"}</button>
+        <button onClick={this.onSubscribeClick("C")}>{subscribedC ? "UNSUBSCRIBE C" : "SUBSCRIBE C"}</button>
+
+        { subscribedC && 
+          <button onClick={this.onConsumeClick("C")}>Consume Action Channel C</button>
+        }
       </div>
     );
   }
@@ -92,7 +127,10 @@ const mapDispatchToProps = (dispatch) => ({
   openConnection: () => dispatch(openSocketConnection()),
   closeConnection: () => dispatch(closeSocketConnection()),
   subscribe: (subscription) => dispatch(subscribe(subscription)),
-  unsubscribe: (subscription) => dispatch(unsubscribe(subscription))
+  unsubscribe: (subscription) => dispatch(unsubscribe(subscription)),
+  consumeA: () => dispatch(consumeActionChannelA()),
+  consumeB: () => dispatch(consumeActionChannelB()),
+  consumeC: () => dispatch(consumeActionChannelC())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SocketSagaTest);

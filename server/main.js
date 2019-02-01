@@ -15,7 +15,7 @@ const startIntervalFunction = (subscription, ws) => {
 
     subscriptions[subscription] = setInterval(
       () => ws.send(JSON.stringify({ subscription, value: Math.random() })),
-      1000
+      100
     );
   }
 }
