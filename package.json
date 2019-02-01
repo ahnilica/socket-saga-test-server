@@ -1,0 +1,14 @@
+{
+  "name": "socket-saga-test-server",
+  "version": "1.0.0",
+  "scripts": {
+    "start-socket-server": "node ./server/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahnilica/socket-saga-test-server.git"
+  },
+  "dependencies": {
+    "ws": "^6.1.3"
+  }
+}
