@@ -45,6 +45,7 @@ function* initializeWebSocketConnection() {
   const socketEventChanel = yield call(createWebSocketEventChannel, socket);
   yield fork(createActionChannels);
 
+  // process bi-directional socket data until connection is closed
   const { cancel } = yield race({
     receiveData: call(receiveInboundData, socketEventChanel),
     sendData: call(subscribeHandler, socket),
@@ -58,6 +59,7 @@ function* initializeWebSocketConnection() {
 
 function* receiveInboundData(socketEventChanel) {
   while(true) {
+    // pop action from the socket event channel
     const action = yield take(socketEventChanel);
     yield put(action);
   }
@@ -65,6 +67,8 @@ function* receiveInboundData(socketEventChanel) {
 
 function* subscribeHandler(socket) {
   while(true) {
+
+    // handle data stream subscription and unsubscription
     const action = yield take(SEND_SOCKET_DATA);
     socket.send(JSON.stringify(action.payload));
 
@@ -179,6 +183,8 @@ function* readActionChannelC(actionChannelC) {
 
 function* sortReceivedData(action) {
   const { subscription, value } = action.payload;
+
+  // sort inbound socket data into an action channel that corresponds to its data stream type
   switch(subscription) {
     case "A":
       yield put(writeToActionChannelA(value));

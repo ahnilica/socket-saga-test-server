@@ -1,5 +1,6 @@
 import { createAction } from "redux-actions";
 
+
 /*** Socket Actions ***/
 
 // Open socket connection
@@ -21,6 +22,8 @@ export const closeSocketConnection = createAction(CLOSE_SOCKET_CONNECTION);
 
 
 /*** Action Channel Managers */
+
+// Write to an action channel buffer
 export const WRITE_TO_ACTION_CHANNEL_A = "WRITE_TO_ACTION_CHANNEL_A";
 export const writeToActionChannelA = (value) => createAction(WRITE_TO_ACTION_CHANNEL_A)({ value });
 
@@ -30,6 +33,7 @@ export const writeToActionChannelB = (value) => createAction(WRITE_TO_ACTION_CHA
 export const WRITE_TO_ACTION_CHANNEL_C = "WRITE_TO_ACTION_CHANNEL_C";
 export const writeToActionChannelC = (value) => createAction(WRITE_TO_ACTION_CHANNEL_C)({ value });
 
+// Allow the action channel buffer to be read and processed
 export const CONSUME_ACTION_CHANNEL_A = "CONSUME_ACTION_CHANNEL_A";
 export const consumeActionChannelA = createAction(CONSUME_ACTION_CHANNEL_A);
 
@@ -39,6 +43,7 @@ export const consumeActionChannelB = createAction(CONSUME_ACTION_CHANNEL_B);
 export const CONSUME_ACTION_CHANNEL_C = "CONSUME_ACTION_CHANNEL_C";
 export const consumeActionChannelC = createAction(CONSUME_ACTION_CHANNEL_C);
 
+// Clear an action channel buffer
 export const FLUSH_ACTION_CHANNEL_A = "FLUSH_ACTION_CHANNEL_A";
 export const flushActionChannelA = createAction(FLUSH_ACTION_CHANNEL_A);
 
@@ -51,7 +56,7 @@ export const flushActionChannelC = createAction(FLUSH_ACTION_CHANNEL_C);
 
 /*** State Mutators ***/
 
-// Update Values
+// Update store values
 export const UPDATE_A_VALUE = "UPDATE_A_VALUE";
 export const updateAValue = (value) => createAction(UPDATE_A_VALUE)({ value });
 
